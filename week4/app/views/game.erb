@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Hangman!</title>
+    <link href="/styles/app.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  <!-- <img src="/images/background.jpg" /> -->
+
+    <div id="content">
+      <div id="content-top">
+        <div id="answer"><%= render_answer(game.answer.current_answer) %></div>
+        <% if game.show_definition? %>
+          <div id="definition"><%= game.definition %></div>          
+        <% end %>
+        <a href="/hangman/new" id="new-game">new game</a>
+      </div>
+
+      <div id="content-left">
+        <div id="lives">lives: <%= game.player.lives %></div>
+        <div id="hangman"></div>
+        <div id="trash">trash: <strike><%= game.wrong_guesses.map(&:string).join(" ") %></strike></div>
+      </div>
+
+      <div id="content-right">
+        <form action="" method="POST">
+          <div id="message"><%= game.message %></div>
+          <% unless game.completed? %>
+            <input type="text" name="guess" id="guess" autofocus/>
+            <input type="submit" value="Guess!" />
+          <% end %>
+
+          <div id="score"><%= game.score %></div>
+
+          <a href="/hangman/powerup?powerup=show_definition">show definition</a>
+        </form> 
+      </div>
+    </div>
+  </body>
+</html>
